@@ -31,6 +31,7 @@ public class Scheduling {
     try {   
       //BufferedReader in = new BufferedReader(new FileReader(f));
       DataInputStream in = new DataInputStream(new FileInputStream(f));
+      int id = 0;
       while ((line = in.readLine()) != null) {
         if (line.startsWith("numprocess")) {
           StringTokenizer st = new StringTokenizer(line);
@@ -57,7 +58,8 @@ public class Scheduling {
           }
           X = X * standardDev;
           cputime = (int) X + meanDev;
-          processVector.addElement(new sProcess(cputime, ioblocking, 0, 0, 0));          
+          processVector.addElement(new sProcess(id, cputime, ioblocking, 0, 0, 0));          
+          id++;
         }
         if (line.startsWith("runtime")) {
           StringTokenizer st = new StringTokenizer(line);
@@ -95,7 +97,7 @@ public class Scheduling {
           }
           X = X * standardDev;
         int cputime = (int) X + meanDev;
-        processVector.addElement(new sProcess(cputime,i*100,0,0,0));          
+        processVector.addElement(new sProcess(i, cputime,i*100,0,0,0));          
         i++;
       }
     }

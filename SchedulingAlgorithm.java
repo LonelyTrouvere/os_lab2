@@ -17,6 +17,7 @@ public class SchedulingAlgorithm {
 
   public SchedulingAlgorithm(int runtime, Vector processVector, Results result){
     this.processVector = processVector;
+    this.ticketVector = new Vector<>();
     this.runtime = runtime;
     this.result = result;
     formTickets();
@@ -56,7 +57,7 @@ public class SchedulingAlgorithm {
         while(true){
           process = lottery();
           if(!process.completed && !process.blocked){
-            out.println("Process: " + process.ticketNum + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
+            out.println("Process: " + process.id + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
             break;
           }
           if(process.blocked)
@@ -69,20 +70,20 @@ public class SchedulingAlgorithm {
         comptime += allowedRun;
 
         if(process.ionext == process.ioblocking){
-          out.println("Process: " + process.ticketNum + " I/O blocked... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
+          out.println("Process: " + process.id + " I/O blocked... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
           process.blocked = true;
           process.numblocked++;
           process.ionext = 0;
         }
-
+        else
         if(process.cpudone == process.cputime){
-          out.println("Process: " + process.ticketNum + " completed... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
+          out.println("Process: " + process.id + " completed... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
           process.completed = true;
           completed++;
         }
-
+        else
         if(allowedRun == quantum){
-          out.println("Process: " + process.ticketNum + " stoped... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
+          out.println("Process: " + process.id + " stoped... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
         }
 
       }

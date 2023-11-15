@@ -1,4 +1,5 @@
 public class sProcess {
+  public int id;
   public int cputime;
   public int ioblocking;
   public int cpudone;
@@ -8,7 +9,8 @@ public class sProcess {
   public Boolean completed;
   public Boolean blocked;
 
-  public sProcess (int cputime, int ioblocking, int cpudone, int ionext, int numblocked) {
+  public sProcess (int id, int cputime, int ioblocking, int cpudone, int ionext, int numblocked) {
+    this.id = id;
     this.cputime = cputime;
     this.ioblocking = ioblocking;
     this.cpudone = cpudone;
