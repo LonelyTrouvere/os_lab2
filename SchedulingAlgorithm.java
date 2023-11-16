@@ -46,7 +46,6 @@ public class SchedulingAlgorithm {
     try {
       PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
       while (comptime < runtime) {
-
         if(completed == processVector.size()){
           out.close();
           result.compuTime = comptime;
@@ -77,6 +76,11 @@ public class SchedulingAlgorithm {
         }
         else
         if(process.cpudone == process.cputime){
+          Vector<sProcess> temp = new Vector<>();
+          for(sProcess p : ticketVector)
+            if(p.id == process.id)
+              temp.add(p);
+          ticketVector.removeAll(temp);
           out.println("Process: " + process.id + " completed... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
           process.completed = true;
           completed++;
