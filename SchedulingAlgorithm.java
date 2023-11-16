@@ -15,7 +15,7 @@ public class SchedulingAlgorithm {
   String resultsFile;
   int quantum;
 
-  public SchedulingAlgorithm(int runtime, Vector processVector, Results result){
+  public SchedulingAlgorithm(int runtime, Vector processVector, Results result, int quantum){
     this.processVector = processVector;
     this.ticketVector = new Vector<>();
     this.runtime = runtime;
@@ -24,7 +24,7 @@ public class SchedulingAlgorithm {
     this.resultsFile = "Summary-Processes";
     result.schedulingType = "Interactive (Preemptive)";
     result.schedulingName = "Lottery"; 
-    this.quantum = 50;
+    this.quantum = quantum;
   }
 
   private void formTickets(){
@@ -39,7 +39,7 @@ public class SchedulingAlgorithm {
     return ticketVector.get(i);
   }
 
-    public Results Run() {
+    public Results run() {
     int comptime = 0;
     int completed = 0;
 
@@ -87,6 +87,7 @@ public class SchedulingAlgorithm {
         }
         else
         if(allowedRun == quantum){
+          process.numStoped++;
           out.println("Process: " + process.id + " stoped... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + ")");
         }
 
